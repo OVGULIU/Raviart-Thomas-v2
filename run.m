@@ -28,6 +28,9 @@ signs = determine_sign(edge2element,noedges);
 % Mass matrix
 MASS = mass_matrix(elements,coordinates,B_K,b_K,detB_K,signs,noedges, nodes2edge);
 
+% Divergence matrix
+DIV = divergence_matrix(elements,coordinates,noedges);
+
 % Clean up afterwards
 rmpath(path)
 
