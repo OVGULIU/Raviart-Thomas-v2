@@ -18,6 +18,6 @@ B_K(:,2,:)  = b';
 b_K         = P1;
 
 % calculate determinant
-detB_K = P1(:,1).*P2(:,2) - P1(:,2).*P2(:,1);
+detB_K = a(:,1).*b(:,2) - a(:,2).*b(:,1);
 
 end
