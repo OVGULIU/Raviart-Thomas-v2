@@ -4,8 +4,8 @@ addpath('./helper_func');
 addpath('./matrix_func');
 addpath('./vector_func');
 
-%problemset = 'twotriangles';
-problemset = 'l-shape';
+problemset = 'twotriangles';
+%problemset = 'l-shape';
 
 path = ['./problem_settings/'  problemset  '/'];
 addpath(path);
