@@ -1,5 +1,5 @@
 %function [nodes2element,inneredge]=edge(element,coordinate);
-function [nodes2element,nodes2edge,noedges,edge2element,interioredge]=edge(element,coordinate);
+function [nodes2element,nodes2edge,noedges,edge2element,interioredge,exterioredge]=edge(element,coordinate)
 % to enumerate number of edges
 nodes2element=sparse(size(coordinate,1),size(coordinate,1));
 for j=1:size(element,1)

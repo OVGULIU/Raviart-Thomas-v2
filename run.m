@@ -17,7 +17,7 @@ boundary = load([path 'boundary.dat']);
 figure(1); show_mesh(elements,coordinates); title('mesh');
 
 % generate mesh helper data
-[nodes2element,nodes2edge,noedges,edge2element,interioredge] = edge(elements,coordinates);
+[nodes2element,nodes2edge,noedges,edge2element,interioredge,exterioredges] = edge(elements,coordinates);
 
 % calculate the transformations for each triangle
 [B_K,b_K,detB_K] = transformations( elements, coordinates );
@@ -33,6 +33,26 @@ DIV = divergence_matrix(elements,noedges,nodes2edge,signs);
 
 % Volume force
 b_F = volumeforce_vector(elements,coordinates,@f);
+
+% Robin boundary vector
+b_R = robin_vector(coordinates,nodes2edge,@u_0,noedges,exterioredges);
+
+% Construct final matrix
+noelements = size(elements,1);
+A   =    [MASS,DIV';...
+          DIV, zeros(noelements,noelements)];
+
+% Construct final vector
+b   =   [b_R;...
+         b_F   ];
+     
+% solution
+x = A\b;
+
+% isolate potential
+potential = x(noedges+1:end);
+ShowDisplacement(elements,coordinates,potential);
+
 % Clean up afterwards
 rmpath(path)
 
