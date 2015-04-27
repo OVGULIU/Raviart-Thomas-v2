@@ -4,13 +4,35 @@ addpath('./helper_func');
 addpath('./matrix_func');
 addpath('./vector_func');
 
-%problemset = 'twotriangles';
 problemset = 'l-shape';
 
 path = ['./problem_settings/'  problemset  '/'];
 addpath(path);
-coordinates = load([path  'coordinates.dat']);
-elements = load([path  'elements.dat']);
+
+
+% vertex coordinates
+p=[0.0, 1.0, 1.0, 0.0, -1.0, -1.0, -1.0,  0.0; ...   % x
+   0.0, 0.0, 1.0, 1.0,  1.0,  0.0, -1.0, -1.0];   % y  
+
+% element vertex numbers and index 
+t=[1, 2, 1, 4, 1, 6; ...   % p-nr 1
+   2, 3, 4, 5, 6, 7; ...   % p-nr 2
+   4, 4, 6, 6, 8, 8; ...   % p-nr 3
+   1, 1, 1, 1, 1, 1];      % subdomain index
+
+% boundary edge vertex numbers and index 
+e=[1, 2, 3, 4, 5, 6, 7, 8; ...   % p-nr 1
+   2, 3, 4, 5, 6, 7, 8, 1; ...   % p-nr 2
+   1, 1, 1, 1, 1, 1, 1, 1];      % subboundary index 
+
+level = 4;
+% mesh refinement
+for i=1:level
+    [p, e, t] = refinemesh(p, e, t);
+end
+coordinates = p';
+t = t([1 2 3],:);
+elements = t';
 
 
 % print mesh
