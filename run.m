@@ -32,7 +32,7 @@ MASS = mass_matrix(elements,coordinates,B_K,b_K,detB_K,signs,noedges, nodes2edge
 DIV = divergence_matrix(elements,noedges,nodes2edge,signs);
 
 % Volume force
-
+b_F = volumeforce_vector(elements,coordinates,@f);
 % Clean up afterwards
 rmpath(path)
 
