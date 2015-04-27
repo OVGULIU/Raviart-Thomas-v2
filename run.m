@@ -23,13 +23,15 @@ figure(1); show_mesh(elements,coordinates); title('mesh');
 [B_K,b_K,detB_K] = transformations( elements, coordinates );
 
 % calculate signs of the edges
-signs = determine_sign(edge2element,noedges);
+signs = determine_signs(edge2element,noedges);
 
 % Mass matrix
 MASS = mass_matrix(elements,coordinates,B_K,b_K,detB_K,signs,noedges, nodes2edge);
 
 % Divergence matrix
-DIV = divergence_matrix(elements,coordinates,noedges);
+DIV = divergence_matrix(elements,noedges,nodes2edge,signs);
+
+% Volume force
 
 % Clean up afterwards
 rmpath(path)
